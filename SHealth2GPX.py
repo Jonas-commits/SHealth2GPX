@@ -1,11 +1,9 @@
 import argparse
 import json
-import pandas
+import pandas as pd
 import os
 from datetime import datetime
 from gooey import Gooey, GooeyParser
-
-import pandas as pd
 
 EXERCISE_TYPES = {  # https://developer.samsung.com/health/android/data/api-reference/EXERCISE_TYPE.html
     0: 'Custom type',
@@ -187,7 +185,7 @@ def create_gpx_files(export_dir):
         raise Exception('Could not find ' + exercise_path)
 
     exercise_files = create_file_index(exercise_path)
-    df = pandas.read_csv(os.path.join(export_dir, exercise_csv), sep=',', header=1, index_col=False)
+    df = pd.read_csv(os.path.join(export_dir, exercise_csv), sep=',', header=1, index_col=False)
     for index, row in df.iterrows():
         if not pd.isna(row['com.samsung.health.exercise.location_data']):
             try:
